@@ -9,7 +9,7 @@
   NB: Après téléversement du programme, supprimer la fonction
   "config_RTC()" puis téléverser de nouveau le programme.
 */
-
+#include <Wire.h>
 #include <RTClib.h>
 
 #define ANODE_COMMUNE false // Si différent remplacé par : ANODE_COMMUNE true
@@ -71,6 +71,7 @@ void setup() {
     if (i < 4){pinMode(pin_digit[i],OUTPUT);}    
   }
 
+  Wire.begin();
   rtc.begin(); // Initialisation de la communication au module RTC_DS3231
   /*  
     Après avoir téléversé le programme, mettre la fonction config_RTC() en commentaire
@@ -158,7 +159,7 @@ void horloge(void){
 
   String U; // Unité
   String D; // Dizaine
-
+  
   // Mise à jour du tableau de la date
   if(str_jour.length()==1){
     date[0] = 0;
@@ -183,7 +184,7 @@ void horloge(void){
     date[2] = U.toInt();
     date[3] = D.toInt();
   }
-
+  Serial.println(str_heure.length());
   // Mise à jour du tableau de l'heure
   if(str_heure.length()==1){
     heure[0] = 0; 

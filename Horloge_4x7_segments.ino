@@ -23,15 +23,15 @@
 #define SEG_E 6
 #define SEG_F 7
 #define SEG_G 8
-#define SEG_DATE  A2
-#define SEG_HEURE 13
+#define SEG_DATE  10
+#define SEG_HEURE 9
 
 // Pins attachés aux différents digits
 #define DIGIT_1   11
 #define DIGIT_2   12
 #define DIGIT_3   A0
 #define DIGIT_4   A1
-#define PIN_POINT A3
+#define PIN_POINT 13
 
 #define ATTENTE 10000 // Temps d'affiche des digits
 

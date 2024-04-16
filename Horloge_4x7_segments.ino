@@ -16,22 +16,22 @@
 #define ON false // Signal d'activation des digits : remplacé par true si ANODE_COMMUNE true
 
 // Pins attachés aux différents segments
-#define SEG_A 2
-#define SEG_B 3
-#define SEG_C 4
-#define SEG_D 5
-#define SEG_E 6
-#define SEG_F 7
-#define SEG_G 8
-#define SEG_DATE  10
-#define SEG_HEURE 9
+#define SEG_A 13
+#define SEG_B 12
+#define SEG_C 11
+#define SEG_D 10
+#define SEG_E 9
+#define SEG_F 8
+#define SEG_G 7
+#define SEG_DATE  5
+#define SEG_HEURE 6
 
 // Pins attachés aux différents digits
-#define DIGIT_1   11
-#define DIGIT_2   12
+#define DIGIT_1   4
+#define DIGIT_2   3
 #define DIGIT_3   A0
 #define DIGIT_4   A1
-#define PIN_POINT 13
+#define PIN_POINT 2
 
 #define ATTENTE 10000 // Temps d'affiche des digits
 
@@ -43,7 +43,7 @@ int heure[4] = {}; // L'heure à afficher
 int date[4]  = {}; // La date à afficher
 
 // Digit possible à afficher sous format : abcdefg
-const int digit[10] = {0x3F,0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F}; 
+const int digit[10] = {0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F}; 
 
 // Variable
 String str_jour;
@@ -60,6 +60,7 @@ void config_RTC(int decalage = 10);
 void horloge(void);
 
 void setup() {
+  Serial.begin(115200);
   // Définitions des pins comme sortie 
   pinMode(SEG_DATE,OUTPUT);
   pinMode(SEG_HEURE,OUTPUT);
@@ -81,7 +82,7 @@ void setup() {
     Insérer le retard approximatif dans les paramètres de la fonction
     EX : config_RTC(20); // valeur maxi 60
   */
-  //config_RTC(); 
+  //config_RTC(10); 
 }
 
 void loop() {
@@ -92,7 +93,7 @@ void loop() {
   bool etat = not ON;
   // Affichage de l'heure
   while(true){
-    affiche(10, heure); // appel à la fonction
+    affiche(5, heure); // appel à la fonction
     
     // Clignotement chaque seconde
     if(millis()-depart_blink > 1000){
@@ -112,7 +113,7 @@ void loop() {
   // Affichage de la date
   while(true){
     digitalWrite(SEG_DATE,not ON); // Allumage
-    affiche(10, date); // appel à la fonction
+    affiche(5, date); // appel à la fonction
 
     if ((millis()-depart) > ATTENTE){
       digitalWrite(SEG_DATE,ON); // Extinction
@@ -143,6 +144,7 @@ void affiche(int attente, int tab[]){
     delay(attente);
     digitalWrite(pin_digit[i],not ON);
   }
+  
 }
 
 

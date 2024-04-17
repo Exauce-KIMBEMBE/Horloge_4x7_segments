@@ -97,7 +97,7 @@ void loop() {
     affiche(5, heure); // appel à la fonction
     
     // Clignotement chaque seconde
-    if(millis()-depart_blink > 1000){
+    if(millis()-depart_blink > 500){
       etat = not etat;
       depart_blink = millis();
       digitalWrite(SEG_HEURE,etat); 
